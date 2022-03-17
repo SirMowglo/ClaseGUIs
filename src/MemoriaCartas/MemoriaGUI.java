@@ -1,6 +1,8 @@
 package MemoriaCartas;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class MemoriaGUI {
     private JPanel mainPanel;
@@ -24,5 +26,8 @@ public class MemoriaGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+    }
+    public MemoriaGUI(){
+
     }
 }

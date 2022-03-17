@@ -6,16 +6,17 @@ import java.awt.*;
 public class Carta {
     private int symbol;
     private int number;
-    private int value;
-    private ImageIcon imagen;
+    private ImageIcon img;
+    private ImageIcon imgback;
     private boolean esGirada = true;
+    private String name;
 
     //-------------------------------------------CONSTRUCTOR-------------------------------------------------
 
     public Carta(int symbol, int number) {
         this.symbol = symbol;
         this.number = number;
-        this.value =this.calculaValor();
+
         if(this.symbol<=0){
             this.symbol =1;
         }
@@ -28,6 +29,13 @@ public class Carta {
         if(this.number>=14){
             this.number =13;
         }
+        this.name = number +symbolToString();
+
+        this.img = new ImageIcon("image/MemoriaCartas/"+ name +".png");
+        this.imgback = new ImageIcon("image/MemoriaCartas/Back.png");
+
+        this.img = this.changeImgSize(img,120,120);
+        this.imgback = this.changeImgSize(imgback,120,120);
     }
 
     //-----------------------------------------GETTER Y SETTER-----------------------------------------------
@@ -56,15 +64,8 @@ public class Carta {
         if(this.number>=14){
             this.number =13;
         }
-        this.value = this.calculaValor();
     }
 
-    public int getValue() {
-        return value;
-    }
-    public void setValue(int value) {
-        this.value = value;
-    }
     //---------------------------------------------METHODS---------------------------------------------------
     public String numberToString(){
         String numberString;
@@ -84,42 +85,27 @@ public class Carta {
     public String symbolToString(){
         String symbolString;
         if(this.symbol == 1){
-            symbolString ="Diamonds";
+            symbolString ="C";
         }else if(this.symbol == 2){
-            symbolString ="Hearts";
+            symbolString ="D";
         }else if(this.symbol == 3){
-            symbolString ="Clubs";
+            symbolString ="H";
         }else if(this.symbol == 4){
-            symbolString ="Spades";
+            symbolString ="S";
         } else{
             symbolString ="None";
         }
         return symbolString;
     }
-
-    public int calculaValor(){
-        int res= 0;
-        if(this.number<10){
-            res=this.number;
-        }else{
-            res= 10;
-        }
-        return res;
-    }
-
-    public void generarImagen(){
-        if(esGirada){
-            imagen = new ImageIcon("pito.jpg");
-        }else{
-            imagen = new ImageIcon("pitoPorDelante");
-        }
-    }
     @Override
     public String toString() {
-        return "\nCarta{" +
-                "symbol=" + this.symbolToString() +
-                ", number=" + this.numberToString() +
-                ", value=" + value +
-                "}";
+        return name;
+    }
+
+    public ImageIcon changeImgSize(ImageIcon img, int width, int height){
+        Image instImage = img.getImage(); // transform it
+        Image newImg = instImage.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        img = new ImageIcon(newImg);  // transform it back
+        return img;
     }
 }
