@@ -34,11 +34,20 @@ public class Carta {
         this.img = new ImageIcon("image/MemoriaCartas/"+ name +".png");
         this.imgback = new ImageIcon("image/MemoriaCartas/Back.png");
 
-        this.img = this.changeImgSize(img,120,120);
-        this.imgback = this.changeImgSize(imgback,120,120);
+        this.img = this.changeImgSize(img,172,250);
+        this.imgback = this.changeImgSize(imgback,172,250);
     }
 
     //-----------------------------------------GETTER Y SETTER-----------------------------------------------
+
+
+    public boolean esGirada() {
+        return esGirada;
+    }
+
+    public void tglEsGirada() {
+        this.esGirada = !this.esGirada;
+    }
 
     public int getSymbol() {
         return symbol;
@@ -64,6 +73,13 @@ public class Carta {
         if(this.number>=14){
             this.number =13;
         }
+    }
+
+    public ImageIcon getImg() {
+        return img;
+    }
+    public ImageIcon getImgback() {
+        return imgback;
     }
 
     //---------------------------------------------METHODS---------------------------------------------------
