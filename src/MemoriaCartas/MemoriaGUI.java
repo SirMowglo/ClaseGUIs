@@ -25,6 +25,11 @@ public class MemoriaGUI {
     private JButton button12;
     private Memoria game;
     private ArrayList<JButton> listaBotones;
+    private String nombreCartaAnterior="";
+    private int contador =0;
+    private Timer timer;
+
+
 
     //MAIN
     public static void main(String[] args) {
@@ -35,6 +40,14 @@ public class MemoriaGUI {
         frame.setVisible(true);
     }
     public MemoriaGUI(){
+        ActionListener al=new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //do your task
+                timer.stop();//stop the task after do the work
+            }
+        };
+        timer = new Timer(1000,al);
+        timer.setRepeats(false);
         game = new Memoria();
         listaBotones = new ArrayList<JButton>();
         listaBotones.add(button1);
@@ -61,12 +74,47 @@ public class MemoriaGUI {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(game.getMazoUsadas().get(listaBotones.indexOf(button1)).esGirada()) {
-                    button1.setIcon(game.getMazoUsadas().get(listaBotones.indexOf(button1)).getImg());
-                }else{
-                    button1.setIcon(game.getMazoUsadas().get(listaBotones.indexOf(button1)).getImgback());
+                //Entra si el nombre de la anterior carta coincide con esta
+                //Acierto se vuelve true
+                if(game.getMazoUsadas().get(listaBotones.indexOf(button1)).esGirada()){
+                    game.getMazoUsadas().get(listaBotones.indexOf(button1)).compareCards(nombreCartaAnterior);
+                    if(game.getMazoUsadas().get(listaBotones.indexOf(button1)).isAcierto()){
+                        button1.setIcon(game.getMazoUsadas().get(listaBotones.indexOf(button1)).getImg());
+                        contador=0;
+                    }else{
+                        if(contador==0){
+                            contador++;
+                            nombreCartaAnterior= game.getMazoUsadas().get(listaBotones.indexOf(button1)).getName();
+
+                            button1.setIcon(game.getMazoUsadas().get(listaBotones.indexOf(button1)).getImg());
+                            game.getMazoUsadas().get(listaBotones.indexOf(button2)).tglEsGirada();
+                        }else{
+                            contador=0;
+                            nombreCartaAnterior="";
+
+                            button1.setIcon(game.getMazoUsadas().get(listaBotones.indexOf(button1)).getImg());
+                            game.getMazoUsadas().get(listaBotones.indexOf(button2)).tglEsGirada();
+
+
+                            timer.start();
+                            //TODO timer que de la vuelta a todas las cartas
+                            // el timer seteara a todas las imagenes como el back, y esGirada quedara como true
+
+                        }
+                    }
                 }
-                game.getMazoUsadas().get(listaBotones.indexOf(button1)).tglEsGirada();
+
+                /*if(game.getMazoUsadas().get(listaBotones.indexOf(button1)).esGirada() && !game.getMazoUsadas().get(listaBotones.indexOf(button1)).isAcierto()) {
+                    button1.setIcon(game.getMazoUsadas().get(listaBotones.indexOf(button1)).getImg());
+                    nombreCartaAnterior=game.getMazoUsadas().get(listaBotones.indexOf(button1)).getName();
+
+                    game.getMazoUsadas().get(listaBotones.indexOf(button2)).tglEsGirada();
+                }else if(!game.getMazoUsadas().get(listaBotones.indexOf(button1)).esGirada() && !game.getMazoUsadas().get(listaBotones.indexOf(button1)).isAcierto()){
+                    button1.setIcon(game.getMazoUsadas().get(listaBotones.indexOf(button1)).getImgback());
+
+                    game.getMazoUsadas().get(listaBotones.indexOf(button2)).tglEsGirada();
+                }*/
+
             }
         });
         //BOTON 2

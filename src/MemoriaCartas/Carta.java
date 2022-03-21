@@ -9,6 +9,7 @@ public class Carta {
     private ImageIcon img;
     private ImageIcon imgback;
     private boolean esGirada = true;
+    private boolean acierto =false;
     private String name;
 
     //-------------------------------------------CONSTRUCTOR-------------------------------------------------
@@ -49,6 +50,10 @@ public class Carta {
         this.esGirada = !this.esGirada;
     }
 
+    public boolean isAcierto() {
+        return acierto;
+    }
+
     public int getSymbol() {
         return symbol;
     }
@@ -73,6 +78,10 @@ public class Carta {
         if(this.number>=14){
             this.number =13;
         }
+    }
+
+    public String getName() {
+        return name;
     }
 
     public ImageIcon getImg() {
@@ -123,5 +132,11 @@ public class Carta {
         Image newImg = instImage.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         img = new ImageIcon(newImg);  // transform it back
         return img;
+    }
+
+    public void compareCards(String carta2){
+        if(this.name.equals(carta2)){
+            acierto =true;
+        }
     }
 }
