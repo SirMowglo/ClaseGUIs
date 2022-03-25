@@ -1,3 +1,5 @@
+package Pruebas;
+
 import javax.swing.*;
 
 public class Pruebas {
