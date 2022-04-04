@@ -71,6 +71,13 @@ public class ChessGUI extends JPanel{
     private JButton f8;
     private JButton g8;
     private JButton h8;
+    private JComboBox comboBox1;
+    private JButton reiniciarButton;
+    private JPanel panelAjedrez;
+    private JPanel panelOpciones;
+    private JPanel panelCementerio;
+    private JPanel panelBlancas;
+    private JPanel panelNegras;
     private ArrayList<JButton> casillaButtons;
 
     public ChessGUI(){
@@ -89,23 +96,19 @@ public class ChessGUI extends JPanel{
         Color blackColor = Color.BLACK;
         Color whiteColor = Color.WHITE;
 
-        for (int i = 1; i <= casillaButtons.size(); i++) {
-            casillaButtons.get(i-1).setBorderPainted(false);
-            casillaButtons.get(i-1).setOpaque(true);
-            casillaButtons.get(i-1).setContentAreaFilled(true);
-            if (i % 2 == 0) { // Adding color based on the odd and even initially.
-                casillaButtons.get(i-1).setBackground(blackColor);
-            } else {
-                casillaButtons.get(i-1).setBackground(whiteColor);
-            }
-            add(casillaButtons.get(i-1));
-
-            if (i % 8 == 0) { // swapping the color when adding the next row
+        for (int i = 0; i < casillaButtons.size(); i++) {
+            casillaButtons.get(i).setBorderPainted(false);
+            if (i % 8 == 0) {
                 Color temp = blackColor;
                 blackColor = whiteColor;
                 whiteColor = temp;
             }
-
+            if (i % 2 == 0) {
+                casillaButtons.get(i).setBackground(blackColor);
+            } else {
+                casillaButtons.get(i).setBackground(whiteColor);
+            }
+            casillaButtons.get(i).setOpaque(true);
         }
     }
     public static void main(String[] args) {
@@ -114,7 +117,8 @@ public class ChessGUI extends JPanel{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setResizable(false);
-        frame.setSize(1000,1000);
         frame.setVisible(true);
     }
+
+
 }
